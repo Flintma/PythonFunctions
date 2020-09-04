@@ -1,0 +1,31 @@
+possible_vals = ["Take online courses", "Buy books and work through the exercises", 
+                 "None of these", "Part-time/evening courses", "Return to college",
+                 "Contribute to open source", "Conferences/meet-ups", "Bootcamp",
+                 "Get a job as a QA tester", "Participate in online coding competitions",
+                 "Master's degree", "Participate in hackathons", "Other"]
+
+def clean_and_plot(df, title='Method of Educating Suggested', plot=True):
+    '''
+    INPUT 
+        df - a dataframe holding the CousinEducation column
+        title - string the title of your plot
+        axis - axis object
+        plot - bool providing whether or not you want a plot back
+        
+    OUTPUT
+        study_df - a dataframe with the count of how many individuals
+        Displays a plot of pretty things related to the CousinEducation column.
+    '''
+    study = df['CousinEducation'].value_counts().reset_index()
+    study.rename(columns={'index': 'method', 'CousinEducation': 'count'}, inplace=True)
+    study_df = t.total_count(study, 'method', 'count', possible_vals)
+
+    study_df.set_index('method', inplace=True)
+    if plot:
+        (study_df/study_df.sum()).plot(kind='bar', legend=None);
+        plt.title(title);
+        plt.show()
+    props_study_df = study_df/study_df.sum()
+    return props_study_df
+    
+props_df = clean_and_plot(df)
