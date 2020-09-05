@@ -1,0 +1,7 @@
+def print_lines(n, file_name):
+    f = open(file_name)
+    for i in range(n):
+        print(f.readline())
+    f.close()
+    
+print_lines(1, 'your_file.json')
