@@ -1,0 +1,16 @@
+# The function inputs should be a data frame and a column name.
+# The output is a data_frame with the outliers eliminated
+
+# HINT: Re-use code from the previous exercise
+
+def tukey_rule(data_frame, column_name):
+    data = data_frame[column_name]
+    Q1 = data.quantile(0.25)
+    Q3 = data.quantile(0.75)
+
+    IQR = Q3 - Q1
+
+    max_value = Q3 + 1.5 * IQR
+    min_value = Q1 - 1.5 * IQR
+
+    return data_frame[(data_frame[column_name] < max_value) & (data_frame[column_name] > min_value)]
